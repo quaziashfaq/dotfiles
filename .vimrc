@@ -90,3 +90,24 @@ imap <C-s> <ESC>:w<cr>a
 " Ctrl+q to quit, hold shift to discard changes
 map <C-q> :q<cr>
 imap <C-q> <ESC>:q<cr>
+
+"  Force Saving Files that Require Root Permission 
+cmap w!! %!sudo tee > /dev/null %
+
+" Automatic reloading of .vimrc
+autocmd! bufwritepost .vimrc source %
+
+" Better copy & paste
+" When you want to paste large blocks of code into vim, press F2 before you
+" paste. At the bottom you should see ``-- INSERT (paste) --``.
+set pastetoggle=<F2>
+set clipboard=unnamed
+
+
+" easier moving of code blocks
+" Try to go into visual mode (v), thenselect several lines of code here and
+" then press ``>`` several times.
+vnoremap < <gv " better indentation
+vnoremap > >gv " better indentation
+
+
