@@ -1,0 +1,8 @@
+[user]
+	name = Quazi Ashfaq-ur Rahman
+	mail = quazi.ashfaq@gmail.com
+	email = quazi.ashfaq@gmail.com
+[credetnial]
+	helper = cache
+[credential]
+	helper = cache --timeout=7200
