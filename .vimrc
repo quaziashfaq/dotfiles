@@ -111,3 +111,12 @@ vnoremap < <gv " better indentation
 vnoremap > >gv " better indentation
 
 
+execute pathogen#infect()
+
+
+" For lisp 
+"let g:slimv_swank_cmd = '!screen -d -m -S foo -t bar sbcl --load ~/.vim/bundle/slimv/slime/start-swank.lisp &'
+let g:slimv_swank_cmd = '!tmux new-session -d "sbcl --load ~/.vim/bundle/slimv/slime/start-swank.lisp" &'
+
+" For python programming
+let g:slime_target = "tmux"
