@@ -73,7 +73,10 @@ autocmd BufNewFile,BufRead *.rss,*.atom setfiletype xml
 let mapleader=" "           " Mapleader is set to <SPACE>
 
 " Automatic reloading of .vimrc - for Windows
-autocmd! bufwritepost ~/vimfiles/vimrc source %
+" autocmd! bufwritepost ~/vimfiles/vimrc source %
+
+" Automatic reloading of .vimrc - for Linux/MacOS
+autocmd! bufwritepost ~/.vimrc source %
 
 
 set guifont=Consolas:h12:cANSI:qDRAFT
