@@ -1,33 +1,25 @@
 "" Setting some very basic things first
 
-"" Replacing ; with : so that it gets easy to type : to get into command-line
-map ; :
-
-"" Type jk if <esc> button is too far  
-inoremap jk <ESC>
-
-
 set nocompatible            " disable compatibility to old-time vi
 set mouse=v                 " middle-click paste with mouse
 set wildmode=longest,list   " get bash-like tab completions <Test><Test><Test>
 
-"" line numbeing rules
-set number                      " Show number lines
-set relativenumber
+"Swap ; with : to reduce pinky strain
+nnoremap ; :
 
-set encoding=utf-8
-set clipboard^=unnamed
+let mapleader=","
 
+"" Type jk if <esc> button is too far  
+inoremap jk <ESC>
 
-"" Setting colorscheme
-set background=dark
-colorscheme desert
+"map gf :tabe <cfile><CR>
 
-set encoding=utf-8
-set showcmd                     " display incomplete commands
+"Not to prompt to save buffer when switching to another buffer
+set hidden
 
 "" Setting whitespace rules
 set wrap                      " wrap lines
+"set wrap linebreak
 "set nowrap                      " don't wrap lines
 set tabstop=4               " number of columns occupied by a tab character
 set softtabstop=4           " see multiple spaces as tabstops so <BS> does the right thing
@@ -35,8 +27,62 @@ set expandtab               " converts tabs to white space
 set backspace=indent,eol,start  " backspace through everything in insert mode
 set shiftwidth=4            " width for autoindents
 set autoindent              " indent a new line the same amount as the line just typed
+set smarttab
+
+set smartindent
+set autoindent
+
+"" line numbering rules
+set number
+set relativenumber
+
+set encoding=utf-8
+set clipboard^=unnamed
+
+set showcmd                 "To show the command you're typing
+
+filetype plugin on
+autocmd FileType markdown setlocal shiftwidth=2 tabstop=2
+autocmd FileType yaml setlocal ai ts=2 sw=2 et nu cuc
 
 
+syntax on
+
+
+"Setting colorscheme
+set background=dark
+colorscheme evening
+"colorscheme desert
+
+let g:markdown_folding = 1
+set foldmethod=expr
+
+" map gf :tabe <cfile><CR>
+
+"Any thought is word, any word is a file, any file is an entry and any entry is searchable (:E netrw is clarity)
+"Of course every significant line is iso8601 date time stamped and backlinks with the usual ripgrep 
+" nmap <yourleader>b :r !rg -l <C-R><C-W> ./*<CR>
+
+
+
+"Add the plugins that you want!
+"run vim and run :PlugInstall to install and :PlugUpdate to update the plugins
+call plug#begin()
+"
+"Plug 'vimwiki/vimwiki'
+" Plug 'dhruvasagar/vim-table-mode'
+"
+call plug#end()
+
+"Customizing vimwiki
+"let g:vimwiki_list = [{'path': '~/notes/',
+"                      \ 'syntax': 'markdown', 'ext': '.md'}]
+
+"After updating .vimrc then run :source % from inside the vimrc
+
+
+"=============================================================
+"=============================================================
 
 "" Searching rules
 set hlsearch                    " highlight matches
