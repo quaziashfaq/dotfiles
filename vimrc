@@ -8,6 +8,7 @@ set wildmode=longest,list   " get bash-like tab completions <Test><Test><Test>
 nnoremap ; :
 
 let mapleader=","
+map <Leader>w <C-w>
 
 "" Type jk if <esc> button is too far  
 inoremap jk <ESC>
@@ -18,9 +19,9 @@ inoremap jk <ESC>
 set hidden
 
 "" Setting whitespace rules
-set wrap                      " wrap lines
+set wrap                    " wrap lines
 "set wrap linebreak
-"set nowrap                      " don't wrap lines
+"set nowrap                 " don't wrap lines
 set tabstop=4               " number of columns occupied by a tab character
 set softtabstop=4           " see multiple spaces as tabstops so <BS> does the right thing
 set expandtab               " converts tabs to white space
@@ -28,25 +29,18 @@ set backspace=indent,eol,start  " backspace through everything in insert mode
 set shiftwidth=4            " width for autoindents
 set autoindent              " indent a new line the same amount as the line just typed
 set smarttab
-
 set smartindent
-set autoindent
 
 "" line numbering rules
 set number
 set relativenumber
 
 set encoding=utf-8
-set clipboard^=unnamed
+
+" Enables the clipboard between Vim or Neovim and other applications.
+"set clipboard=namedplus
 
 set showcmd                 "To show the command you're typing
-
-filetype plugin on
-autocmd FileType markdown setlocal shiftwidth=2 tabstop=2
-autocmd FileType yaml setlocal ai ts=2 sw=2 et nu cuc
-
-
-syntax on
 
 
 "Setting colorscheme
@@ -54,35 +48,29 @@ set background=dark
 colorscheme evening
 "colorscheme desert
 
+
+" Setting Markdown Folding
 let g:markdown_folding = 1
-set foldmethod=expr
 
-" map gf :tabe <cfile><CR>
+"set foldmethod=expr
+set foldmethod=indent
 
+
+
+
+
+"
 "Any thought is word, any word is a file, any file is an entry and any entry is searchable (:E netrw is clarity)
 "Of course every significant line is iso8601 date time stamped and backlinks with the usual ripgrep 
 " nmap <yourleader>b :r !rg -l <C-R><C-W> ./*<CR>
 
-
-
 "Add the plugins that you want!
 "run vim and run :PlugInstall to install and :PlugUpdate to update the plugins
-call plug#begin()
-"
+"call plug#begin()
 "Plug 'vimwiki/vimwiki'
 " Plug 'dhruvasagar/vim-table-mode'
-"
-call plug#end()
+"call plug#end()
 
-"Customizing vimwiki
-"let g:vimwiki_list = [{'path': '~/notes/',
-"                      \ 'syntax': 'markdown', 'ext': '.md'}]
-
-"After updating .vimrc then run :source % from inside the vimrc
-
-
-"=============================================================
-"=============================================================
 
 "" Searching rules
 set hlsearch                    " highlight matches
@@ -90,24 +78,38 @@ set incsearch                   " incremental searching
 set ignorecase                  " searches are case insensitive...
 "set smartcase                   " ... unless they contain at least one capital letter
 set showmatch               " show matching brackets.
-set hlsearch                " highlight search results
+
+
+
+" Options
+" other applications.
+set completeopt=noinsert,menuone,noselect " Modifies the auto-complete menu  to behave more like an IDE.
+"set cursorline " Highlights the current line in the editor
+" set hidden " Hide unused buffers
+"set splitbelow splitright " Change the split screen behavior
+"set title " Show file title
+"set wildmenu " Show a more advance menu
+" set guifont=hack_nerd_font:h11
+"set cc=100 " Show at 80 column a border for good code style                      
+"set spell " enable spell check (may need to download language package)
+"set ttyfast " Speed up scrolling in Vim`:wq
+"
+" let g:kite_supported_languages = ['python', 'javascript']
 
 
 "" FileType and Syntax rules
-"set cc=80                   " set an 80 column border for good coding style
-filetype plugin indent on   " allows auto-indenting depending on file type
+filetype plugin indent on
 syntax on                   " syntax highlighting
 
-
+autocmd FileType markdown setlocal shiftwidth=2 tabstop=2
 
 " Syntax of these languages is fussy over tabs Vs spaces
 autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType yaml setlocal autoindent tabstop=2 softtabstop=2 shiftwidth=2 expandtab number cursorcolumn
 
-" Customisations based on house-style (arbitrary)
-autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
-autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
-autocmd FileType javascript setlocal ts=4 sts=4 sw=4 noexpandtab
+autocmd FileType html setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab 
+autocmd FileType css  setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab 
+autocmd FileType javascript setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab 
                               
 " Treat .rss files as XML
 autocmd BufNewFile,BufRead *.rss,*.atom setfiletype xml
@@ -116,7 +118,6 @@ autocmd BufNewFile,BufRead *.rss,*.atom setfiletype xml
 
 
 
-let mapleader=" "           " Mapleader is set to <SPACE>
 
 " Automatic reloading of .vimrc - for Windows
 " autocmd! bufwritepost ~/vimfiles/vimrc source %
@@ -125,12 +126,10 @@ let mapleader=" "           " Mapleader is set to <SPACE>
 autocmd! bufwritepost ~/.vimrc source %
 
 
-set guifont=Consolas:h12:cANSI:qDRAFT
+"set guifont=Consolas:h12:cANSI:qDRAFT
 set autochdir
 
 
-" Setting Markdown Folding
-let g:markdown_folding = 1
 
 "set nomodeline
 
