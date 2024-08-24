@@ -51,11 +51,9 @@ syntax on
 
 "Setting colorscheme
 set background=dark
-colorscheme evening
+" colorscheme elflord
 "colorscheme desert
 
-let g:markdown_folding = 1
-set foldmethod=expr
 
 " map gf :tabe <cfile><CR>
 
@@ -70,7 +68,7 @@ set foldmethod=expr
 call plug#begin()
 "
 "Plug 'vimwiki/vimwiki'
-" Plug 'dhruvasagar/vim-table-mode'
+Plug 'dhruvasagar/vim-table-mode'
 "
 call plug#end()
 
@@ -116,8 +114,6 @@ autocmd BufNewFile,BufRead *.rss,*.atom setfiletype xml
 
 
 
-let mapleader=" "           " Mapleader is set to <SPACE>
-
 " Automatic reloading of .vimrc - for Windows
 " autocmd! bufwritepost ~/vimfiles/vimrc source %
 
@@ -131,7 +127,20 @@ set autochdir
 
 " Setting Markdown Folding
 let g:markdown_folding = 1
+" set foldmethod=expr
+set foldmethod=indent
 
 "set nomodeline
 
 set belloff=all
+
+
+" Splitting Mechanisms
+set splitbelow
+set splitright
+
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
