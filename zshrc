@@ -17,8 +17,9 @@ alias l='ls'
 alias la='ls -a'
 alias ll='ls -l'
 alias lla='ls -lla'
+alias ltr='ls -ltr'
 
-alias rs='rlwrap sbcl'
+#alias rs='rlwrap sbcl'
 alias myip="curl http://ipecho.net/plain; echo"
 
 mcd(){
@@ -27,3 +28,4 @@ mcd(){
 
 export PATH=/home/ash/.local/share/gem/ruby/3.0.0/bin:$PATH
 export PS1='%n@%m %~ $ '
+
