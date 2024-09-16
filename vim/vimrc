@@ -112,7 +112,7 @@ autocmd FileType markdown setlocal shiftwidth=2 tabstop=2
 
 " Syntax of these languages is fussy over tabs Vs spaces
 autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-autocmd FileType yaml setlocal autoindent tabstop=2 softtabstop=2 shiftwidth=2 expandtab number cursorcolumn
+autocmd FileType yaml setlocal autoindent tabstop=2 softtabstop=2 shiftwidth=2 expandtab number smartindent cursorcolumn
 
 autocmd FileType html setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab 
 autocmd FileType css  setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab 
