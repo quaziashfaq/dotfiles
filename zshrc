@@ -27,5 +27,6 @@ mcd(){
 }
 
 export PATH=/home/ash/.local/share/gem/ruby/3.0.0/bin:$PATH
-export PS1='%n@%m %~ $ '
+export PS1='%n@%m %~/ 
+$ '
 

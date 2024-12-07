@@ -8,10 +8,20 @@ set wildmode=longest,list   " get bash-like tab completions <Test><Test><Test>
 nnoremap ; :
 
 let mapleader=","
-map <Leader>w <C-w>
+map <leader>w <C-w>
 
 "" Type jk if <esc> button is too far  
 inoremap jk <ESC>
+
+" To make copy and pasting easy from the web
+set pastetoggle=<F2>
+
+"Swap tab with escape
+"noremap <tab> <esc>
+"noremap <esc> <tab>
+"noremap! <tab> <esc>
+"noremap! <esc> <tab>
+
 
 "map gf :tabe <cfile><CR>
 
@@ -20,7 +30,7 @@ set hidden
 
 "" Setting whitespace rules
 set wrap                    " wrap lines
-"set wrap linebreak
+set linebreak
 "set nowrap                 " don't wrap lines
 set tabstop=4               " number of columns occupied by a tab character
 set softtabstop=4           " see multiple spaces as tabstops so <BS> does the right thing
@@ -38,7 +48,7 @@ set relativenumber
 set encoding=utf-8
 
 " Enables the clipboard between Vim or Neovim and other applications.
-"set clipboard=namedplus
+set clipboard=unnamed
 
 set showcmd                 "To show the command you're typing
 
@@ -108,18 +118,73 @@ let g:vimwiki_list = [{'path': '~/Documents/notes/'}]
 let g:vimwiki_folding='expr:quick'
 
 
-autocmd FileType markdown setlocal shiftwidth=2 tabstop=2
+augroup filetype_markdown
+    autocmd!
+    autocmd FileType markdown setlocal shiftwidth=2 tabstop=2
+augroup END
 
 " Syntax of these languages is fussy over tabs Vs spaces
-autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-autocmd FileType yaml setlocal autoindent tabstop=2 softtabstop=2 shiftwidth=2 expandtab number cursorcolumn
+augroup filetype_make
+    autocmd!
+    autocmd FileType make setlocal ts=4 sts=4 sw=4 noexpandtab
+augroup END
 
-autocmd FileType html setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab 
-autocmd FileType css  setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab 
-autocmd FileType javascript setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab 
+augroup filetype_yaml
+    autocmd!
+    autocmd FileType yaml setlocal autoindent tabstop=2 softtabstop=2 shiftwidth=2 expandtab number cursorcolumn
+augroup END
+
+" HTML - customaziation
+augroup filetype_html
+    autocmd!
+    let maplocalleader="\<space>"
+    autocmd FileType html setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab 
+    autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
+    " For auto formatting the html file
+    autocmd BufWritePre,BufRead *.html :normal gg=G
+    " :help autocmd-events
+augroup END
+
+augroup filetype_css
+    autocmd!
+    autocmd FileType css  setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab 
+augroup END
+
+" Javascript - customization
+augroup filetype_javascript
+    autocmd!
+    autocmd FileType javascript setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab 
+    " Commenting a line
+    autocmd FileType javascript nnoremap <buffer> <leader>c I//<esc>
+    autocmd FileType javascript :iabbrev <buffer> iff if()<left>
+augroup END
+
+"  
+" Python - customization
+augroup filetype_python
+    autocmd!
+    let maplocalleader="\<space>"
+    " Commenting a line
+    autocmd FileType python nnoremap <buffer> <localleader>c I#<esc>
+    autocmd FileType python :iabbrev <buffer> iff if:<left>
+    autocmd FileType python nnoremap <buffer> <leader>C :s/^(\s*)#/\1/<esc><esc>
+augroup end
+
+" CPP - customization
+augroup filetype_cpp
+    autocmd!
+    let maplocalleader="\<space>"
+    " Commenting a line
+    autocmd FileType cpp nnoremap <buffer> <localleader>c I//<esc>
+    "autocmd FileType python :iabbrev <buffer> iff if:<left>
+augroup end
                               
 " Treat .rss files as XML
-autocmd BufNewFile,BufRead *.rss,*.atom setfiletype xml
+augroup filetype_xml
+    autocmd!
+    autocmd BufNewFile,BufRead *.rss,*.atom setfiletype xml
+augroup END
+
 "autocmd Filetype gitcommit setlocal spell textwidth=72
 
 
@@ -129,8 +194,9 @@ autocmd BufNewFile,BufRead *.rss,*.atom setfiletype xml
 " autocmd! bufwritepost ~/vimfiles/vimrc source %
 
 " Automatic reloading of .vimrc - for Linux/MacOS
-autocmd! bufwritepost ~/.vimrc source %
-
+"autocmd! bufwritepost ~/.vimrc source %
+autocmd! bufwritepost $MYVIMRC source %
+"$MYVIMRC
 
 "set guifont=Consolas:h12:cANSI:qDRAFT
 set autochdir
@@ -166,6 +232,68 @@ colorscheme evening
 "  \ setlocal foldenable | set foldexpr=VimwikiFoldLevelCustom(v:lnum)
 "augroup END
 
+"Action
+"Steady
 
+"awessome
+"How could it be
+"TESTING_TESTING_FANTASTIC
+"MAX_CONNECTIONS_ALOWED
 
+" Learn vimscript the hard way
+echom ">^.^<"
+map - ddp
+map _ ddkP
+"inoremap <c-d> <esc>ddi<enter><esc>ki
+"inoremap <c-u> <esc>viwUi
+"nnoremap <c-u> viwU
+nnoremap <leader>ev :split $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
 
+iabbrev adn and
+iabbrev teh the
+iabbrev waht what
+iabbrev tehn then
+
+iabbrev @@    quazi.ashfaq@gmail.com
+iabbrev myname Quazi Ashfaq Ur Rahman
+iabbrev ccopy Copyright 2024 Quazi Ashfaq Ur Rahman, all rights reserved.
+iabbrev ssig --<cr>Quazi Ashfaq Ur Rahman<cr>quazi.ashfaq@gmail.com
+
+" Quoting a word with " or '
+nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
+nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
+
+" Quoting a selection
+vnoremap <leader>" <esc>`<i"<esc>`>la"<esc>l
+vnoremap " <esc>`<i"<esc>`>la"<esc>l
+
+" Visual Block
+nnoremap <leader>vb <c-v>
+
+nnoremap H 0
+nnoremap L $
+"onoremap p i(
+onoremap b /return<cr>
+onoremap in( :<c-u>normal! f(vi(<cr>
+onoremap il( :<c-u>normal! F)vi(<cr>
+
+onoremap ih :<c-u>execute "normal! ?^==\\+$\r:nohlsearch\rkvg_"<cr>
+onoremap ah :<c-u>execute "normal! ?^==\\+$\r:nohlsearch\rg_vk0"<cr>
+
+" Status Line  
+set laststatus=2
+set statusline=%f%m%r\ %c\ %v\ %4l/%-4L\ -\ %P\ %y
+
+" Commenting blocks of code.
+augroup commenting_blocks_of_code
+  autocmd!
+  autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
+  autocmd FileType sh,ruby,python   let b:comment_leader = '# '
+  autocmd FileType conf,fstab       let b:comment_leader = '# '
+  autocmd FileType tex              let b:comment_leader = '% '
+  autocmd FileType mail             let b:comment_leader = '> '
+  autocmd FileType vim              let b:comment_leader = '" '
+augroup END
+noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
