@@ -129,9 +129,11 @@ augroup filetype_make
     autocmd FileType make setlocal ts=4 sts=4 sw=4 noexpandtab
 augroup END
 
+
 augroup filetype_yaml
     autocmd!
-    autocmd FileType yaml setlocal autoindent tabstop=2 softtabstop=2 shiftwidth=2 expandtab number cursorcolumn
+    "autocmd FileType yaml setlocal autoindent tabstop=2 softtabstop=2 shiftwidth=2 expandtab number cursorcolumn
+    autocmd FileType yaml setlocal autoindent tabstop=2 softtabstop=2 shiftwidth=2 expandtab number smartindent cursorcolumn
 augroup END
 
 " HTML - customaziation
