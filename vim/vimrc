@@ -146,6 +146,17 @@ augroup filetype_html
     autocmd BufWritePre,BufRead *.html :normal gg=G
     " :help autocmd-events
 augroup END
+"
+" Racket - customaziation
+augroup filetype_racket
+    autocmd!
+    autocmd FileType racket setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab 
+    "autocmd FileType racket nnoremap <buffer> <localleader>f Vatzf
+    " For auto formatting the html file
+    "autocmd BufWritePre,BufRead *.html :normal gg=G
+    " :help autocmd-events
+augroup END
+
 
 augroup filetype_css
     autocmd!
@@ -268,13 +279,12 @@ nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
 
 " Quoting a selection
 vnoremap <leader>" <esc>`<i"<esc>`>la"<esc>l
-vnoremap " <esc>`<i"<esc>`>la"<esc>l
 
 " Visual Block
 nnoremap <leader>vb <c-v>
 
-nnoremap H 0
-nnoremap L $
+" nnoremap H 0
+" nnoremap L $
 "onoremap p i(
 onoremap b /return<cr>
 onoremap in( :<c-u>normal! f(vi(<cr>
@@ -296,6 +306,7 @@ augroup commenting_blocks_of_code
   autocmd FileType tex              let b:comment_leader = '% '
   autocmd FileType mail             let b:comment_leader = '> '
   autocmd FileType vim              let b:comment_leader = '" '
+  autocmd FileType racket           let b:comment_leader = ';; '
 augroup END
 noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
