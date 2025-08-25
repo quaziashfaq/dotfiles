@@ -53,8 +53,9 @@ set clipboard=unnamed
 set showcmd                 "To show the command you're typing
 
 
+colorscheme default
 "Setting colorscheme
-set background=dark
+"set background=dark
 " colorscheme elflord
 "colorscheme desert
 
@@ -254,7 +255,7 @@ colorscheme evening
 "MAX_CONNECTIONS_ALOWED
 
 " Learn vimscript the hard way
-echom ">^.^<"
+" echom ">^.^<"
 map - ddp
 map _ ddkP
 "inoremap <c-d> <esc>ddi<enter><esc>ki
