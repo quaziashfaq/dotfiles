@@ -1,5 +1,6 @@
-"" Setting some very basic things first
+set t_Co=255
 
+"" Setting some very basic things first
 set nocompatible            " disable compatibility to old-time vi
 set mouse=v                 " middle-click paste with mouse
 set wildmode=longest,list   " get bash-like tab completions <Test><Test><Test>
@@ -8,7 +9,13 @@ set wildmode=longest,list   " get bash-like tab completions <Test><Test><Test>
 nnoremap ; :
 
 let mapleader=","
-map <leader>w <C-w>
+"map <leader>w <C-w>
+
+"" Check the buffer and waiting for the number to enter
+nnoremap <leader>b :ls<CR>:b<Space>
+nnoremap tn :tabnext<CR>
+nnoremap tp :tabprevious<CR>
+
 
 "" Type jk if <esc> button is too far  
 inoremap jk <ESC>
@@ -31,7 +38,6 @@ set hidden
 "" Setting whitespace rules
 set wrap                    " wrap lines
 set linebreak
-"set nowrap                 " don't wrap lines
 set tabstop=4               " number of columns occupied by a tab character
 set softtabstop=4           " see multiple spaces as tabstops so <BS> does the right thing
 set expandtab               " converts tabs to white space
@@ -53,16 +59,10 @@ set clipboard=unnamed
 set showcmd                 "To show the command you're typing
 
 
-colorscheme default
-"Setting colorscheme
-"set background=dark
-" colorscheme elflord
-"colorscheme desert
 
 
 " Setting Markdown Folding
 let g:markdown_folding = 1
-"set foldmethod=expr
 "set foldmethod=expr
 "set conceallevel=2
 
@@ -79,8 +79,15 @@ let g:markdown_folding = 1
 "run vim and run :PlugInstall to install and :PlugUpdate to update the plugins
 call plug#begin()
 Plug 'vimwiki/vimwiki'
-Plug 'dhruvasagar/vim-table-mode'
+Plug 'lervag/vimtex'
+Plug 'girishji/autosuggest.vim'
+Plug 'sirver/ultisnips'
+Plug 'honza/vim-snippets'
+
 call plug#end()
+
+"colorscheme sorbet
+syntax on
 
 "" Searching rules
 set hlsearch                    " highlight matches
@@ -109,15 +116,53 @@ set completeopt=noinsert,menuone,noselect " Modifies the auto-complete menu  to 
 
 "" FileType and Syntax rules
 filetype plugin indent on
+"set background=dark
+"colorscheme desert
 syntax on                   " syntax highlighting
 
 
 " Vimwiki customizations
 let g:vimwiki_global_ext = 0 
 let g:vimwiki_list = [{'path': '~/Documents/notes/'}]
-"let g:vimwiki_folding='syntax'
 let g:vimwiki_folding='expr:quick'
+"let g:vimwiki_list = [{'path': '~/wiki/', 'syntax': 'markdown', 'ext': 'md'}]
 
+" function! VimwikiCustomFold(lnum)
+"     let line = getline(a:lnum)
+" 
+"     " 1. Fold Vimwiki Headers (e.g., = Header =, == Header ==)
+"     if line =~ '^=\+.\+=\+$'
+"         let header_level = len(matchstr(line, '^=\+'))
+"         if header_level > 0
+"             return '>' . header_level
+"         endif
+"     endif
+" 
+"     " 2. Fold Lists based on indentation
+"     " Matches items starting with *, -, or numbers like 1.
+"     if line =~ '^\s*[-*]\|^\s*\d\+\.'
+"         let indent_level = indent(a:lnum) / &shiftwidth
+"         " Add 1 to offset lists so they collapse cleanly under headers
+"         return '>' . (indent_level + 2)
+"     endif
+" 
+" "     if getline(a:lnum) =~? '\v^\s*$'
+" "         if (strlen(matchstr(getline(a:lnum + 1), '^=\+')))
+"" "             return '-1' 
+" don't fold last blank line before header
+" "         endif
+" "     endif
+" " 
+"   " 3. Keep current fold level for normal text lines
+"     return '-1'
+" endfunction
+" 
+" " Apply the custom folding specifically to Vimwiki files
+" augroup VimwikiCustomFolding
+"     autocmd!
+"     autocmd FileType vimwiki setlocal foldmethod=expr | setlocal foldexpr=VimwikiCustomFold(v:lnum)
+" augroup END
+" 
 
 augroup filetype_markdown
     autocmd!
@@ -191,6 +236,7 @@ augroup filetype_cpp
     " Commenting a line
     autocmd FileType cpp nnoremap <buffer> <localleader>c I//<esc>
     "autocmd FileType python :iabbrev <buffer> iff if:<left>
+"     colorscheme desert
 augroup end
                               
 " Treat .rss files as XML
@@ -225,7 +271,6 @@ set belloff=all
 set splitbelow
 set splitright
 
-colorscheme evening
 
 "function! VimwikiFoldLevelCustom(lnum)
 "let pounds = strlen(matchstr(getline(a:lnum), '^#\+'))
@@ -249,18 +294,24 @@ colorscheme evening
 "Action
 "Steady
 
-"awessome
+"AWESOME
 "How could it be
 "TESTING_TESTING_FANTASTIC
 "MAX_CONNECTIONS_ALOWED
 
 " Learn vimscript the hard way
-" echom ">^.^<"
+echom ">^.^<"
 map - ddp
 map _ ddkP
+" Add blank line below (remains in Normal Mode)
+nnoremap <silent> <Leader>o :put _<CR>
+
+" Add blank line above (remains in Normal Mode)
+nnoremap <silent> <Leader>O :put! _<CR>
 "inoremap <c-d> <esc>ddi<enter><esc>ki
 "inoremap <c-u> <esc>viwUi
 "nnoremap <c-u> viwU
+nnoremap <space> za
 nnoremap <leader>ev :split $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
@@ -311,3 +362,22 @@ augroup commenting_blocks_of_code
 augroup END
 noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+
+" TeX Customizations
+let g:tex_flavor='latex'
+let g:vimtex_view_method='general'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
+
+
+
+" UtilSnips Customization
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsEditSplit = 'vertical'
+let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips', 'UltiSnips']
+
+
+

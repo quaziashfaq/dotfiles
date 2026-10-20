@@ -18,6 +18,7 @@ alias la='ls -a'
 alias ll='ls -l'
 alias lla='ls -lla'
 alias ltr='ls -ltr'
+alias python='python3'
 
 #alias rs='rlwrap sbcl'
 alias myip="curl http://ipecho.net/plain; echo"

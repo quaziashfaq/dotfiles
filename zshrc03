@@ -1,0 +1,59 @@
+# ==============================================================================
+# 1. HISTORY SETTINGS
+# ==============================================================================
+HISTFILE=~/.zsh_history         # File to store history
+HISTSIZE=50000                  # Max commands stored in memory
+SAVEHIST=50000                  # Max commands saved to history file
+
+setopt APPEND_HISTORY           # Append history instead of overwriting
+setopt INC_APPEND_HISTORY       # Save command immediately after execution
+setopt SHARE_HISTORY            # Share history across all open terminal windows
+setopt HIST_IGNORE_ALL_DUPS     # Remove older duplicate commands from history
+setopt HIST_REDUCE_BLANKS       # Trim superfluous spaces from commands
+
+# ==============================================================================
+# 2. COMPLETION SYSTEM
+# ==============================================================================
+autoload -Uz compinit && compinit -i  # Initialize the completion system
+
+zstyle ':completion:*' menu select   # Use graphical menu layout for choices
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' # Case-insensitive matching
+
+# ==============================================================================
+# 3. INTERACTIVE KEYBINDINGS
+# ==============================================================================
+#bindkey -e                      # Use standard Emacs keybindings
+bindkey -v                      # Use standard vim keybindings
+
+# History search using Up/Down arrows matching typed prefix
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey '^[[A' up-line-or-beginning-search    # Up Arrow
+bindkey '^[[B' down-line-or-beginning-search  # Down Arrow
+
+# Ensure Home, End, and Delete keys function correctly
+bindkey '^[[H' beginning-of-line              # Home key
+bindkey '^[[F' end-of-line                    # End key
+bindkey '^[[3~' delete-char                   # Delete key
+
+# ==============================================================================
+# 4. PROMPT SETUP (Clean & Dynamic)
+# ==============================================================================
+# %F{color}...%f changes text color. %B...%b makes text bold.
+# %~ displays the current working directory relative to home (~).
+PROMPT='%F{blue}%B%~%b%f %F{green}❯%f '
+
+# ==============================================================================
+# 5. QUALITY OF LIFE OPTIONS & ALIASES
+# ==============================================================================
+setopt AUTO_CD                  # Type a directory name to cd into it
+
+# Essential shortcuts & safety overrides
+alias ls='ls --color=auto -h'    # Colorized and human-readable directories
+alias ll='ls -lh'               # Long list format
+alias la='ls -lah'              # Show hidden files
+alias grep='grep --color=auto'  # Highlight search text
+alias mv='mv -i'                # Prompt before overwriting a file
+alias cp='cp -i'                # Prompt before overwriting a file
+
