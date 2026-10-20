@@ -20,43 +20,34 @@ nnoremap tp :tabprevious<CR>
 "" Type jk if <esc> button is too far  
 inoremap jk <ESC>
 
-" To make copy and pasting easy from the web
-set pastetoggle=<F2>
-
-"Swap tab with escape
-"noremap <tab> <esc>
-"noremap <esc> <tab>
-"noremap! <tab> <esc>
-"noremap! <esc> <tab>
-
+set pastetoggle=<F2>            " to make copy and pasting easy from the web
 
 "map gf :tabe <cfile><CR>
 
-"Not to prompt to save buffer when switching to another buffer
-set hidden
+set hidden                      " not to prompt to save buffer when switching to another buffer
 
 "" Setting whitespace rules
-set wrap                    " wrap lines
+set wrap                        " wrap lines
 set linebreak
-set tabstop=4               " number of columns occupied by a tab character
-set softtabstop=4           " see multiple spaces as tabstops so <BS> does the right thing
-set expandtab               " converts tabs to white space
+set tabstop=4                   " number of columns occupied by a tab character
+set softtabstop=4               " see multiple spaces as tabstops so <BS> does the right thing
+set expandtab                   " converts tabs to white space
+set tabstop=4                   " number of columns occupied by a tab character
+set softtabstop=4               " see multiple spaces as tabstops so <BS> does the right thing
+set expandtab                   " converts tabs to white space
 set backspace=indent,eol,start  " backspace through everything in insert mode
-set shiftwidth=4            " width for autoindents
-set autoindent              " indent a new line the same amount as the line just typed
+set shiftwidth=4                " width for autoindents
+set autoindent                  " indent a new line the same amount as the line just typed
 set smarttab
 set smartindent
 
-"" line numbering rules
-set number
-set relativenumber
+set number                      " show line numbers
+set relativenumber              " show relative line numbers
 
 set encoding=utf-8
+set clipboard=unnamed           " Enables the clipboard between Vim or Neovim and other applications.
 
-" Enables the clipboard between Vim or Neovim and other applications.
-set clipboard=unnamed
-
-set showcmd                 "To show the command you're typing
+set showcmd                     " To show the command you're typing
 
 
 
@@ -65,6 +56,16 @@ set showcmd                 "To show the command you're typing
 let g:markdown_folding = 1
 "set foldmethod=expr
 "set conceallevel=2
+colorscheme default
+syntax on
+
+
+
+"" Searching rules
+set hlsearch                    " highlight matches
+set incsearch                   " incremental searching
+set ignorecase                  " searches are case insensitive...
+set showmatch                   " show matching brackets.
 
 
 
@@ -86,39 +87,15 @@ Plug 'honza/vim-snippets'
 
 call plug#end()
 
-"colorscheme sorbet
-syntax on
-
-"" Searching rules
-set hlsearch                    " highlight matches
-set incsearch                   " incremental searching
-set ignorecase                  " searches are case insensitive...
-"set smartcase                   " ... unless they contain at least one capital letter
-set showmatch               " show matching brackets.
 
 
 
-" Options
-" other applications.
+
 set completeopt=noinsert,menuone,noselect " Modifies the auto-complete menu  to behave more like an IDE.
-"set cursorline " Highlights the current line in the editor
-" set hidden " Hide unused buffers
-"set splitbelow splitright " Change the split screen behavior
-"set title " Show file title
-"set wildmenu " Show a more advance menu
-" set guifont=hack_nerd_font:h11
-"set cc=100 " Show at 80 column a border for good code style                      
-"set spell " enable spell check (may need to download language package)
-"set ttyfast " Speed up scrolling in Vim`:wq
-"
-" let g:kite_supported_languages = ['python', 'javascript']
 
 
 "" FileType and Syntax rules
 filetype plugin indent on
-"set background=dark
-"colorscheme desert
-syntax on                   " syntax highlighting
 
 
 " Vimwiki customizations
@@ -127,122 +104,83 @@ let g:vimwiki_list = [{'path': '~/Documents/notes/'}]
 let g:vimwiki_folding='expr:quick'
 "let g:vimwiki_list = [{'path': '~/wiki/', 'syntax': 'markdown', 'ext': 'md'}]
 
-" function! VimwikiCustomFold(lnum)
-"     let line = getline(a:lnum)
-" 
-"     " 1. Fold Vimwiki Headers (e.g., = Header =, == Header ==)
-"     if line =~ '^=\+.\+=\+$'
-"         let header_level = len(matchstr(line, '^=\+'))
-"         if header_level > 0
-"             return '>' . header_level
-"         endif
-"     endif
-" 
-"     " 2. Fold Lists based on indentation
-"     " Matches items starting with *, -, or numbers like 1.
-"     if line =~ '^\s*[-*]\|^\s*\d\+\.'
-"         let indent_level = indent(a:lnum) / &shiftwidth
-"         " Add 1 to offset lists so they collapse cleanly under headers
-"         return '>' . (indent_level + 2)
-"     endif
-" 
-" "     if getline(a:lnum) =~? '\v^\s*$'
-" "         if (strlen(matchstr(getline(a:lnum + 1), '^=\+')))
-"" "             return '-1' 
-" don't fold last blank line before header
-" "         endif
-" "     endif
-" " 
-"   " 3. Keep current fold level for normal text lines
-"     return '-1'
-" endfunction
-" 
-" " Apply the custom folding specifically to Vimwiki files
-" augroup VimwikiCustomFolding
-"     autocmd!
-"     autocmd FileType vimwiki setlocal foldmethod=expr | setlocal foldexpr=VimwikiCustomFold(v:lnum)
-" augroup END
-" 
 
 augroup filetype_markdown
-    autocmd!
-    autocmd FileType markdown setlocal shiftwidth=2 tabstop=2
+autocmd!
+autocmd FileType markdown setlocal shiftwidth=2 tabstop=2
 augroup END
 
 " Syntax of these languages is fussy over tabs Vs spaces
 augroup filetype_make
-    autocmd!
-    autocmd FileType make setlocal ts=4 sts=4 sw=4 noexpandtab
+autocmd!
+autocmd FileType make setlocal ts=4 sts=4 sw=4 noexpandtab
 augroup END
 
 
 augroup filetype_yaml
-    autocmd!
-    "autocmd FileType yaml setlocal autoindent tabstop=2 softtabstop=2 shiftwidth=2 expandtab number cursorcolumn
-    autocmd FileType yaml setlocal autoindent tabstop=2 softtabstop=2 shiftwidth=2 expandtab number smartindent cursorcolumn
+autocmd!
+"autocmd FileType yaml setlocal autoindent tabstop=2 softtabstop=2 shiftwidth=2 expandtab number cursorcolumn
+autocmd FileType yaml setlocal autoindent tabstop=2 softtabstop=2 shiftwidth=2 expandtab number smartindent cursorcolumn
 augroup END
 
-" HTML - customaziation
 augroup filetype_html
-    autocmd!
-    let maplocalleader="\<space>"
-    autocmd FileType html setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab 
-    autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
-    " For auto formatting the html file
-    autocmd BufWritePre,BufRead *.html :normal gg=G
-    " :help autocmd-events
+autocmd!
+let maplocalleader="\<space>"
+autocmd FileType html setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab 
+autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
+" For auto formatting the html file
+autocmd BufWritePre,BufRead *.html :normal gg=G
+" :help autocmd-events
 augroup END
 "
 " Racket - customaziation
 augroup filetype_racket
-    autocmd!
-    autocmd FileType racket setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab 
-    "autocmd FileType racket nnoremap <buffer> <localleader>f Vatzf
-    " For auto formatting the html file
-    "autocmd BufWritePre,BufRead *.html :normal gg=G
-    " :help autocmd-events
+autocmd!
+autocmd FileType racket setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab 
+"autocmd FileType racket nnoremap <buffer> <localleader>f Vatzf
+" :help autocmd-events
 augroup END
 
 
 augroup filetype_css
-    autocmd!
-    autocmd FileType css  setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab 
+autocmd!
+autocmd FileType css  setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab 
 augroup END
 
 " Javascript - customization
 augroup filetype_javascript
-    autocmd!
-    autocmd FileType javascript setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab 
-    " Commenting a line
-    autocmd FileType javascript nnoremap <buffer> <leader>c I//<esc>
-    autocmd FileType javascript :iabbrev <buffer> iff if()<left>
+autocmd!
+autocmd FileType javascript setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab 
+" Commenting a line
+autocmd FileType javascript nnoremap <buffer> <leader>c I//<esc>
+autocmd FileType javascript :iabbrev <buffer> iff if()<left>
 augroup END
 
 "  
 " Python - customization
 augroup filetype_python
-    autocmd!
-    let maplocalleader="\<space>"
-    " Commenting a line
-    autocmd FileType python nnoremap <buffer> <localleader>c I#<esc>
-    autocmd FileType python :iabbrev <buffer> iff if:<left>
-    autocmd FileType python nnoremap <buffer> <leader>C :s/^(\s*)#/\1/<esc><esc>
+autocmd!
+let maplocalleader="\<space>"
+" Commenting a line
+autocmd FileType python nnoremap <buffer> <localleader>c I#<esc>
+autocmd FileType python :iabbrev <buffer> iff if:<left>
+autocmd FileType python nnoremap <buffer> <leader>C :s/^(\s*)#/\1/<esc><esc>
 augroup end
 
 " CPP - customization
 augroup filetype_cpp
-    autocmd!
-    let maplocalleader="\<space>"
-    " Commenting a line
-    autocmd FileType cpp nnoremap <buffer> <localleader>c I//<esc>
-    "autocmd FileType python :iabbrev <buffer> iff if:<left>
+autocmd!
+let maplocalleader="\<space>"
+" Commenting a line
+autocmd FileType cpp nnoremap <buffer> <localleader>c I//<esc>
+"autocmd FileType python :iabbrev <buffer> iff if:<left>
 "     colorscheme desert
 augroup end
-                              
+                          
 " Treat .rss files as XML
 augroup filetype_xml
-    autocmd!
-    autocmd BufNewFile,BufRead *.rss,*.atom setfiletype xml
+autocmd!
+autocmd BufNewFile,BufRead *.rss,*.atom setfiletype xml
 augroup END
 
 "autocmd Filetype gitcommit setlocal spell textwidth=72
@@ -254,13 +192,10 @@ augroup END
 " autocmd! bufwritepost ~/vimfiles/vimrc source %
 
 " Automatic reloading of .vimrc - for Linux/MacOS
-"autocmd! bufwritepost ~/.vimrc source %
 autocmd! bufwritepost $MYVIMRC source %
-"$MYVIMRC
 
 "set guifont=Consolas:h12:cANSI:qDRAFT
 set autochdir
-
 
 
 "set nomodeline
@@ -271,33 +206,6 @@ set belloff=all
 set splitbelow
 set splitright
 
-
-"function! VimwikiFoldLevelCustom(lnum)
-"let pounds = strlen(matchstr(getline(a:lnum), '^#\+'))
-"if (pounds)
-"  return '>' . pounds  " start a fold level
-"endif
-"if getline(a:lnum) =~? '\v^\s*$'
-"  if (strlen(matchstr(getline(a:lnum + 1), '^#\+')))
-"    return '-1' " don't fold last blank line before header
-"  endif
-"endif
-"return '=' " return previous fold level
-"endfunction
-
-"augroup VimrcVimWiki
-"autocmd!
-"autocmd FileType vimwiki setlocal foldmethod=expr |
-"  \ setlocal foldenable | set foldexpr=VimwikiFoldLevelCustom(v:lnum)
-"augroup END
-
-"Action
-"Steady
-
-"AWESOME
-"How could it be
-"TESTING_TESTING_FANTASTIC
-"MAX_CONNECTIONS_ALOWED
 
 " Learn vimscript the hard way
 echom ">^.^<"
@@ -351,14 +259,14 @@ set statusline=%f%m%r\ %c\ %v\ %4l/%-4L\ -\ %P\ %y
 
 " Commenting blocks of code.
 augroup commenting_blocks_of_code
-  autocmd!
-  autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
-  autocmd FileType sh,ruby,python   let b:comment_leader = '# '
-  autocmd FileType conf,fstab       let b:comment_leader = '# '
-  autocmd FileType tex              let b:comment_leader = '% '
-  autocmd FileType mail             let b:comment_leader = '> '
-  autocmd FileType vim              let b:comment_leader = '" '
-  autocmd FileType racket           let b:comment_leader = ';; '
+autocmd!
+autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
+autocmd FileType sh,ruby,python   let b:comment_leader = '# '
+autocmd FileType conf,fstab       let b:comment_leader = '# '
+autocmd FileType tex              let b:comment_leader = '% '
+autocmd FileType mail             let b:comment_leader = '> '
+autocmd FileType vim              let b:comment_leader = '" '
+autocmd FileType racket           let b:comment_leader = ';; '
 augroup END
 noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
