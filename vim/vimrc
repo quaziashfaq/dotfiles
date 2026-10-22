@@ -243,9 +243,6 @@ vnoremap <leader>" <esc>`<i"<esc>`>la"<esc>l
 " Visual Block
 nnoremap <leader>vb <c-v>
 
-" nnoremap H 0
-" nnoremap L $
-"onoremap p i(
 onoremap b /return<cr>
 onoremap in( :<c-u>normal! f(vi(<cr>
 onoremap il( :<c-u>normal! F)vi(<cr>
@@ -287,5 +284,9 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 let g:UltiSnipsEditSplit = 'vertical'
 let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips', 'UltiSnips']
 
+
+" Automatic update frequency
+set updatetime=600000
+autocmd CursorHold,CursorHoldI * update
 
 
